@@ -49,7 +49,7 @@ def start_gui():
     def jegy_foglalas():
         try:
             jarat_szama = int(repulo_bevitel.get()) - 1
-            utas_nev = entry_passenger_name.get()
+            utas_nev = entry_utas_name.get()
             if jarat_szama < 0 or jarat_szama >= len(legi_tarsasag.jaratok):
                 messagebox.showerror("Hiba", "Érvénytelen járatszám!")
                 return
@@ -61,18 +61,18 @@ def start_gui():
 
     def jegy_torles():
         try:
-            foglalas_id = int(entry_booking_id.get())
+            foglalas_id = int(entry_foglal_id.get())
             foglalas_rendszer.lemondas(foglalas_id)
         except ValueError:
             messagebox.showerror("Hiba", "Érvénytelen foglalás ID!")
 
     def foglalas_lista():
-        bookings_list.delete(0, tk.END)
+        foglal_list.delete(0, tk.END)
         if not foglalas_rendszer.foglalasok:
-            bookings_list.insert(tk.END, "Nincsenek foglalások.")
+            foglal_list.insert(tk.END, "Nincsenek foglalások.")
         for foglalas in foglalas_rendszer.foglalasok:
             sorszam = foglalas_rendszer.foglalasok.index(foglalas) + 1
-            bookings_list.insert(tk.END, f"{sorszam} ... ID:{foglalas['id']}, Járat: {foglalas['jarat'].jaratszam}, Utas: {foglalas['utas_nev']},/"
+            foglal_list.insert(tk.END, f"{sorszam} ... ID:{foglalas['id']}, Járat: {foglalas['jarat'].jaratszam}, Utas: {foglalas['utas_nev']},/"
                                          f"Ár: {foglalas['jarat'].jegyar} Ft, Foglalás idő: {foglalas['foglalas_time']}")
 
     def exit_program():
@@ -115,8 +115,8 @@ def start_gui():
     repulo_bevitel = tk.Entry(foglal_frame)
     repulo_bevitel.grid(row=2, column=0, sticky="ew")
     tk.Label(foglal_frame, text="Utas neve:").grid(row=3, column=0, sticky="w")
-    entry_passenger_name = tk.Entry(foglal_frame)
-    entry_passenger_name.grid(row=4, column=0, sticky="ew")
+    entry_utas_name = tk.Entry(foglal_frame)
+    entry_utas_name.grid(row=4, column=0, sticky="ew")
     tk.Button(foglal_frame, text="Foglalás", command=jegy_foglalas, width=20, height=2).grid(row=5, column=0, sticky="ew")
 
     # Foglalás lemondása
@@ -126,8 +126,8 @@ def start_gui():
     lemond_frame.columnconfigure(0, weight=1)
     tk.Label(lemond_frame, text="Foglalás lemondása:").grid(row=0, column=0, sticky="n")
     tk.Label(lemond_frame, text="Foglalás ID").grid(row=1, column=0, sticky="w")
-    entry_booking_id = tk.Entry(lemond_frame)
-    entry_booking_id.grid(row=2, column=0, sticky="ew")
+    entry_foglal_id = tk.Entry(lemond_frame)
+    entry_foglal_id.grid(row=2, column=0, sticky="ew")
     tk.Button(lemond_frame, text="Lemondás", command=jegy_torles, width=20, height=2).grid(row=3, column=0, sticky="ew")
 
     # Foglalások listája
@@ -136,8 +136,8 @@ def start_gui():
     foglal_frame.rowconfigure(0, weight=1)
     foglal_frame.columnconfigure(0, weight=1)
     tk.Label(foglal_frame, text="Foglalások:").grid(row=0, column=0, sticky="n")
-    bookings_list = tk.Listbox(foglal_frame)
-    bookings_list.grid(row=1, column=0, sticky="nsew")
+    foglal_list = tk.Listbox(foglal_frame)
+    foglal_list.grid(row=1, column=0, sticky="nsew")
     tk.Button(foglal_frame, text="Foglalások listázása", command=foglalas_lista, width=20, height=2).grid(row=2, column=0, sticky="ew")
 
     # Kilépés gomb
