@@ -1,0 +1,11 @@
+Mérnökinformatikus MEIN-AT-07
+Kiss Sándor
+O2WN7M
+
+aero_zrt_gui_3.py  - Tkinter GUI foglaló rendszer
+legitarsasag_1_4.py - konzolos foglaló rendszer
+
+felhasznált osztályok:
+LegiTarsasag.py 
+JegyFoglalas.py
+Jarat.py
